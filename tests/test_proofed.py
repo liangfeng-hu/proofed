@@ -180,9 +180,17 @@ class ConformanceTests(unittest.TestCase):
             for path in REPO_ROOT.rglob("*")
             if path.is_file()
             and not ignored_parts.intersection(path.parts)
+            and "assets" not in path.relative_to(REPO_ROOT).parts
             and not any(part.endswith(".egg-info") for part in path.parts)
         ]
+        media = sorted(
+            path.relative_to(REPO_ROOT).as_posix()
+            for path in (REPO_ROOT / "assets").glob("*")
+            if path.is_file()
+        )
         self.assertLessEqual(len(files), 30)
+        self.assertEqual(media, ["assets/proofed-red-green.gif", "assets/proofed-red-green.mp4"])
+        self.assertTrue(all((REPO_ROOT / path).stat().st_size <= 5_000_000 for path in media))
         self.assertLessEqual(len((REPO_ROOT / "README.md").read_text(encoding="utf-8").splitlines()), 60)
 
     def test_detached_json_cannot_self_assert_ci_trust(self) -> None:

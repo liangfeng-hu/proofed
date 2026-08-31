@@ -6,6 +6,8 @@
 
 Coding agents can claim “done” without evidence. Proofed refuses `PASSED` until the **current code** has the test and diff evidence your repository requires, then writes a portable completion receipt. Agent Skills describe how to do the work; Proofed defines when it may be called complete—and preserves the next step after an interruption.
 
+[![Real Proofed run: REJECT, PASSED, independent verification, then STALE_SUBJECT](assets/proofed-red-green.gif)](assets/proofed-red-green.mp4)
+
 ## See false completion rejected
 
 ```console
