@@ -4,6 +4,7 @@ import hashlib
 import json
 import sqlite3
 import uuid
+from contextlib import closing
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -117,7 +118,7 @@ class Kernel:
         return connection
 
     def _initialize(self) -> None:
-        with self._connect() as connection:
+        with closing(self._connect()) as connection, connection:
             connection.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS events (
@@ -169,14 +170,14 @@ class Kernel:
             raise KernelError("materialized state diverges from replay; refusing to continue")
 
     def load(self, run_id: str) -> dict[str, Any]:
-        with self._connect() as connection:
+        with closing(self._connect()) as connection, connection:
             self._verify_chain(connection)
             state = self._replay(connection, run_id)
             self._check_materialized(connection, run_id, state)
             return state
 
     def active_run(self) -> dict[str, Any] | None:
-        with self._connect() as connection:
+        with closing(self._connect()) as connection, connection:
             self._verify_chain(connection)
             row = connection.execute(
                 "SELECT run_id FROM states WHERE active=1 ORDER BY updated_at DESC LIMIT 1"
@@ -188,7 +189,7 @@ class Kernel:
             return state
 
     def append(self, run_id: str, event_type: str, payload: dict[str, Any]) -> dict[str, Any]:
-        with self._connect() as connection:
+        with closing(self._connect()) as connection, connection:
             connection.execute("BEGIN IMMEDIATE")
             self._verify_chain(connection)
             last = connection.execute("SELECT event_hash FROM events ORDER BY seq DESC LIMIT 1").fetchone()
