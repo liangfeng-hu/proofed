@@ -10,7 +10,8 @@ user asks whether an agent's completion claim has current evidence.
 
 1. Check for both the `proofed` command and repository opt-in `.proofed.yml`.
    If either is absent, say that the gate has not run. Do not imply verification.
-2. Before modifying the environment, ask the user. The pinned alpha install is
+2. Before modifying the environment, ask the user. After the PyPI release, use
+   `python -m pip install proofed-agent`; until then, the pinned alpha install is
    `python -m pip install "git+https://github.com/liangfeng-hu/proofed.git@v0.1.0-alpha.1"`.
    Repository opt-in is `proofed init`.
 3. Run `proofed status` before choosing the next action. Do not repeat a failed

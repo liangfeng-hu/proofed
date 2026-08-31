@@ -14,7 +14,7 @@
 npx skills add liangfeng-hu/proofed --skill proofed-verify
 ```
 
-Skill 挂在已有编码 Agent 上，不替代 Agent。首个 PyPI 版本发布前，请从固定 alpha 标签安装零运行时依赖的 CLI：
+Skill 挂在已有编码 Agent 上，不替代 Agent。PyPI 发布后安装包名为 `python -m pip install proofed-agent`；在此之前请从固定 alpha 标签安装零运行时依赖的 CLI：
 
 ```bash
 python -m pip install "git+https://github.com/liangfeng-hu/proofed.git@v0.1.0-alpha.1"
