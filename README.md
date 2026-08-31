@@ -55,7 +55,7 @@ proofed verify --run-tests
 Make the same gate a PR check:
 
 ```yaml
-- uses: liangfeng-hu/proofed@v0.1.0-alpha.1
+- uses: liangfeng-hu/proofed@v0.1.0-alpha.3
   with:
     target: .
 ```

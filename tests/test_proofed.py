@@ -10,10 +10,11 @@ import subprocess
 import sys
 import tempfile
 import unittest
+from importlib.metadata import version
 from pathlib import Path
 from unittest import mock
 
-from proofed import cli
+from proofed import __version__, cli
 from proofed.kernel import Kernel, KernelError
 from proofed.receipt import verify_bundle
 from proofed.subject import current_subject
@@ -157,6 +158,9 @@ class ProofedEndToEndTests(unittest.TestCase):
 
 
 class ConformanceTests(unittest.TestCase):
+    def test_runtime_version_matches_distribution_metadata(self) -> None:
+        self.assertEqual(__version__, version("proofed-agent"))
+
     def test_shared_vectors_pass_both_independent_verifiers(self) -> None:
         python = subprocess.run(
             [sys.executable, str(REPO_ROOT / "verifiers/python/check_receipt.py"), str(VECTORS), "--vectors"],

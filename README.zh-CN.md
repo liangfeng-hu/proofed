@@ -53,7 +53,7 @@ proofed verify --run-tests
 把同一闸门加入 PR：
 
 ```yaml
-- uses: liangfeng-hu/proofed@v0.1.0-alpha.1
+- uses: liangfeng-hu/proofed@v0.1.0-alpha.3
   with:
     target: .
 ```
