@@ -4,12 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "proofed"
-version = "0.1.0a1"
+version = "0.1.0a2"
 description = "A deterministic evidence gate for coding-agent completion claims."
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "Apache-2.0"}
 authors = [{name = "Proofed contributors"}]
+keywords = ["agent-skills", "coding-agents", "github-actions", "verification", "attestation"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "License :: OSI Approved :: Apache Software License",
@@ -22,6 +23,7 @@ dependencies = []
 Homepage = "https://github.com/liangfeng-hu/proofed"
 Repository = "https://github.com/liangfeng-hu/proofed"
 Issues = "https://github.com/liangfeng-hu/proofed/issues"
+Changelog = "https://github.com/liangfeng-hu/proofed/releases"
 
 [project.scripts]
 proofed = "proofed.cli:main"

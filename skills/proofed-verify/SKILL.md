@@ -1,19 +1,25 @@
 ---
 name: proofed-verify
-description: Require current-subject evidence before claiming a coding task is complete.
+description: Use before a coding agent claims a repository task is done. Require current-code evidence, reject stale receipts, and preserve the next legal action after interruption.
 ---
 
 # Proofed verification gate
 
-Use this skill when a repository contains `.proofed.yml` and a coding task may
-be completed.
+Use this skill when a repository task is about to be called complete, or when a
+user asks whether an agent's completion claim has current evidence.
 
-1. Run `proofed status` before choosing the next action.
-2. Do not repeat any failed path listed by status without new distinguishing evidence.
-3. Before claiming completion, run `proofed verify`.
-4. If evidence is missing, perform the printed next action. Tests are executed
-   only with the explicit `proofed verify --run-tests` command.
-5. Claim completion only when the receipt for the current repository subject is
-   `PASSED`.
-6. Never treat a host hook as unbypassable or a signature as proof of correctness.
-
+1. Check for both the `proofed` command and repository opt-in `.proofed.yml`.
+   If either is absent, say that the gate has not run. Do not imply verification.
+2. Before modifying the environment, ask the user. The pinned alpha install is
+   `python -m pip install "git+https://github.com/liangfeng-hu/proofed.git@v0.1.0-alpha.1"`.
+   Repository opt-in is `proofed init`.
+3. Run `proofed status` before choosing the next action. Do not repeat a failed
+   path listed there without new distinguishing evidence.
+4. Before claiming completion, run `proofed verify`.
+5. If it reports missing test evidence and the repository-configured command is
+   appropriate, run `proofed verify --run-tests`; otherwise perform the printed
+   next action explicitly.
+6. Claim completion only when a `PASSED` receipt matches the current subject.
+   Any later code change requires fresh evidence.
+7. Never treat a host hook as unbypassable, a signed receipt as proof of
+   correctness, or a missing configuration as permission to silently enforce.
