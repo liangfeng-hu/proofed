@@ -3,7 +3,7 @@ requires = ["setuptools>=68"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "proofed"
+name = "proofed-agent"
 version = "0.1.0a2"
 description = "A deterministic evidence gate for coding-agent completion claims."
 readme = "README.md"
