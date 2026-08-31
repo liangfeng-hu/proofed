@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+if [ ! -f .proofed.yml ] || [ ! -f .proofed/state.db ]; then
+  exit 0
+fi
+
+proofed status --context >/dev/null
+receipt=$(find .proofed/receipts -type f -name 'completion-*.json' | sort | tail -n 1)
+if [ -z "$receipt" ]; then
+  echo "Proofed rejected commit: no completion receipt exists." >&2
+  exit 2
+fi
+proofed check-receipt "$receipt" --current .

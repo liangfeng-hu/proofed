@@ -1,0 +1,457 @@
+{
+  "vectorVersion": "0.1",
+  "cases": [
+    {
+      "name": "valid-local-pass",
+      "bundle": {
+        "bundleVersion": "0.1",
+        "statements": [
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "urn:uuid:7ec9a0e8-9d21-4b8c-9bdd-11e1ab3c87cf",
+            "predicate": {
+              "schemaVersion": "0.1",
+              "runId": "11111111-1111-4111-8111-111111111111",
+              "projectId": "urn:uuid:22222222-2222-4222-8222-222222222222",
+              "intentRevision": 1,
+              "phase": "PASSED",
+              "decision": "PASSED",
+              "reason": {
+                "code": "ALL_REQUIRED_EVIDENCE_PRESENT",
+                "message": "all required evidence matches the current subject"
+              },
+              "nextLegalAction": "none",
+              "requiredEvidence": [
+                "tests_passed",
+                "git_diff_recorded"
+              ],
+              "missingEvidence": [],
+              "evidenceRefs": [
+                {
+                  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+                  "digest": "sha256:35db9dd2d33912e4933be2ea8f04b853229eea642a1293820469edd9c5330a3c"
+                }
+              ],
+              "failedPathRefs": [],
+              "effects": [],
+              "subjectDescriptor": {
+                "descriptorVersion": "0.1",
+                "commitOid": "0123456789abcdef0123456789abcdef01234567",
+                "treeOid": "89abcdef0123456789abcdef0123456789abcdef",
+                "workspacePatchSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "policy": {
+                "evidenceDegradedByUser": false,
+                "testConfigurationDigests": [
+                  "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                ]
+              },
+              "producer": {
+                "name": "proofed",
+                "version": "0.1.0-alpha.1",
+                "trustLevel": "L0",
+                "environment": "local"
+              }
+            }
+          },
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+            "predicate": {
+              "result": "PASSED",
+              "configuration": [
+                {
+                  "name": "canonical-test-command",
+                  "digest": {
+                    "sha256": "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                  }
+                }
+              ],
+              "passedTests": [
+                "canonical-suite-1"
+              ],
+              "warnedTests": [],
+              "failedTests": []
+            }
+          }
+        ]
+      },
+      "expectedErrors": []
+    },
+    {
+      "name": "reject-missing-test-evidence",
+      "bundle": {
+        "bundleVersion": "0.1",
+        "statements": [
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "urn:uuid:7ec9a0e8-9d21-4b8c-9bdd-11e1ab3c87cf",
+            "predicate": {
+              "schemaVersion": "0.1",
+              "runId": "11111111-1111-4111-8111-111111111111",
+              "projectId": "urn:uuid:22222222-2222-4222-8222-222222222222",
+              "intentRevision": 1,
+              "phase": "VERIFYING",
+              "decision": "REJECT",
+              "reason": {
+                "code": "ALL_REQUIRED_EVIDENCE_PRESENT",
+                "message": "all required evidence matches the current subject"
+              },
+              "nextLegalAction": "none",
+              "requiredEvidence": [
+                "tests_passed",
+                "git_diff_recorded"
+              ],
+              "missingEvidence": [
+                "tests_passed"
+              ],
+              "evidenceRefs": [],
+              "failedPathRefs": [],
+              "effects": [],
+              "subjectDescriptor": {
+                "descriptorVersion": "0.1",
+                "commitOid": "0123456789abcdef0123456789abcdef01234567",
+                "treeOid": "89abcdef0123456789abcdef0123456789abcdef",
+                "workspacePatchSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "policy": {
+                "evidenceDegradedByUser": false,
+                "testConfigurationDigests": [
+                  "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                ]
+              },
+              "producer": {
+                "name": "proofed",
+                "version": "0.1.0-alpha.1",
+                "trustLevel": "L0",
+                "environment": "local"
+              }
+            }
+          }
+        ]
+      },
+      "expectedErrors": [
+        "COMPLETION_NOT_PASSED",
+        "MISSING_REQUIRED_EVIDENCE",
+        "MISSING_TEST_RESULT"
+      ]
+    },
+    {
+      "name": "reject-unknown-effect-retry",
+      "bundle": {
+        "bundleVersion": "0.1",
+        "statements": [
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "urn:uuid:7ec9a0e8-9d21-4b8c-9bdd-11e1ab3c87cf",
+            "predicate": {
+              "schemaVersion": "0.1",
+              "runId": "11111111-1111-4111-8111-111111111111",
+              "projectId": "urn:uuid:22222222-2222-4222-8222-222222222222",
+              "intentRevision": 1,
+              "phase": "PASSED",
+              "decision": "PASSED",
+              "reason": {
+                "code": "ALL_REQUIRED_EVIDENCE_PRESENT",
+                "message": "all required evidence matches the current subject"
+              },
+              "nextLegalAction": "none",
+              "requiredEvidence": [
+                "tests_passed",
+                "git_diff_recorded"
+              ],
+              "missingEvidence": [],
+              "evidenceRefs": [
+                {
+                  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+                  "digest": "sha256:35db9dd2d33912e4933be2ea8f04b853229eea642a1293820469edd9c5330a3c"
+                }
+              ],
+              "failedPathRefs": [],
+              "effects": [
+                {
+                  "effectId": "e1",
+                  "kind": "git.push",
+                  "state": "EFFECT_UNKNOWN",
+                  "retryAllowed": true
+                }
+              ],
+              "subjectDescriptor": {
+                "descriptorVersion": "0.1",
+                "commitOid": "0123456789abcdef0123456789abcdef01234567",
+                "treeOid": "89abcdef0123456789abcdef0123456789abcdef",
+                "workspacePatchSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "policy": {
+                "evidenceDegradedByUser": false,
+                "testConfigurationDigests": [
+                  "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                ]
+              },
+              "producer": {
+                "name": "proofed",
+                "version": "0.1.0-alpha.1",
+                "trustLevel": "L0",
+                "environment": "local"
+              }
+            }
+          },
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+            "predicate": {
+              "result": "PASSED",
+              "configuration": [
+                {
+                  "name": "canonical-test-command",
+                  "digest": {
+                    "sha256": "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                  }
+                }
+              ],
+              "passedTests": [
+                "canonical-suite-1"
+              ],
+              "warnedTests": [],
+              "failedTests": []
+            }
+          }
+        ]
+      },
+      "expectedErrors": [
+        "UNKNOWN_EFFECT_RETRY_ALLOWED"
+      ]
+    },
+    {
+      "name": "reject-broken-evidence-reference",
+      "bundle": {
+        "bundleVersion": "0.1",
+        "statements": [
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "urn:uuid:7ec9a0e8-9d21-4b8c-9bdd-11e1ab3c87cf",
+            "predicate": {
+              "schemaVersion": "0.1",
+              "runId": "11111111-1111-4111-8111-111111111111",
+              "projectId": "urn:uuid:22222222-2222-4222-8222-222222222222",
+              "intentRevision": 1,
+              "phase": "PASSED",
+              "decision": "PASSED",
+              "reason": {
+                "code": "ALL_REQUIRED_EVIDENCE_PRESENT",
+                "message": "all required evidence matches the current subject"
+              },
+              "nextLegalAction": "none",
+              "requiredEvidence": [
+                "tests_passed",
+                "git_diff_recorded"
+              ],
+              "missingEvidence": [],
+              "evidenceRefs": [
+                {
+                  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+                  "digest": "sha256:0000000000000000000000000000000000000000000000000000000000000000"
+                }
+              ],
+              "failedPathRefs": [],
+              "effects": [],
+              "subjectDescriptor": {
+                "descriptorVersion": "0.1",
+                "commitOid": "0123456789abcdef0123456789abcdef01234567",
+                "treeOid": "89abcdef0123456789abcdef0123456789abcdef",
+                "workspacePatchSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "policy": {
+                "evidenceDegradedByUser": false,
+                "testConfigurationDigests": [
+                  "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                ]
+              },
+              "producer": {
+                "name": "proofed",
+                "version": "0.1.0-alpha.1",
+                "trustLevel": "L0",
+                "environment": "local"
+              }
+            }
+          },
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+            "predicate": {
+              "result": "PASSED",
+              "configuration": [
+                {
+                  "name": "canonical-test-command",
+                  "digest": {
+                    "sha256": "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                  }
+                }
+              ],
+              "passedTests": [
+                "canonical-suite-1"
+              ],
+              "warnedTests": [],
+              "failedTests": []
+            }
+          }
+        ]
+      },
+      "expectedErrors": [
+        "BROKEN_EVIDENCE_REFERENCE",
+        "MISSING_TEST_RESULT"
+      ]
+    },
+    {
+      "name": "reject-test-configuration-mismatch",
+      "bundle": {
+        "bundleVersion": "0.1",
+        "statements": [
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "urn:uuid:7ec9a0e8-9d21-4b8c-9bdd-11e1ab3c87cf",
+            "predicate": {
+              "schemaVersion": "0.1",
+              "runId": "11111111-1111-4111-8111-111111111111",
+              "projectId": "urn:uuid:22222222-2222-4222-8222-222222222222",
+              "intentRevision": 1,
+              "phase": "PASSED",
+              "decision": "PASSED",
+              "reason": {
+                "code": "ALL_REQUIRED_EVIDENCE_PRESENT",
+                "message": "all required evidence matches the current subject"
+              },
+              "nextLegalAction": "none",
+              "requiredEvidence": [
+                "tests_passed",
+                "git_diff_recorded"
+              ],
+              "missingEvidence": [],
+              "evidenceRefs": [
+                {
+                  "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+                  "digest": "sha256:35db9dd2d33912e4933be2ea8f04b853229eea642a1293820469edd9c5330a3c"
+                }
+              ],
+              "failedPathRefs": [],
+              "effects": [],
+              "subjectDescriptor": {
+                "descriptorVersion": "0.1",
+                "commitOid": "0123456789abcdef0123456789abcdef01234567",
+                "treeOid": "89abcdef0123456789abcdef0123456789abcdef",
+                "workspacePatchSha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+              },
+              "policy": {
+                "evidenceDegradedByUser": false,
+                "testConfigurationDigests": [
+                  "ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                ]
+              },
+              "producer": {
+                "name": "proofed",
+                "version": "0.1.0-alpha.1",
+                "trustLevel": "L0",
+                "environment": "local"
+              }
+            }
+          },
+          {
+            "_type": "https://in-toto.io/Statement/v1",
+            "subject": [
+              {
+                "name": "repository-state",
+                "digest": {
+                  "sha256": "8b582d145593e110af09c595d8b981a99bf440ab115411457aeceba8daf0a469"
+                }
+              }
+            ],
+            "predicateType": "https://in-toto.io/attestation/test-result/v0.1",
+            "predicate": {
+              "result": "PASSED",
+              "configuration": [
+                {
+                  "name": "canonical-test-command",
+                  "digest": {
+                    "sha256": "9af07b0167f477e5bfdbe69a5a6978ae4e226d3a38716471e37bc454a7dcb019"
+                  }
+                }
+              ],
+              "passedTests": [
+                "canonical-suite-1"
+              ],
+              "warnedTests": [],
+              "failedTests": []
+            }
+          }
+        ]
+      },
+      "expectedErrors": [
+        "TEST_CONFIGURATION_MISMATCH"
+      ]
+    }
+  ]
+}
