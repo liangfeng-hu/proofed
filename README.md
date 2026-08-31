@@ -16,10 +16,10 @@ Coding agents can claim “done” without evidence. Proofed refuses `PASSED` un
 npx skills add liangfeng-hu/proofed --skill proofed-verify
 ```
 
-The Skill works with existing coding agents; it does not replace them. After the PyPI release, install the distribution as `python -m pip install proofed-agent`; until then, use the pinned alpha tag:
+The Skill works with existing coding agents; it does not replace them. Install the zero-runtime-dependency distribution from PyPI:
 
 ```bash
-python -m pip install "git+https://github.com/liangfeng-hu/proofed.git@v0.1.0-alpha.1"
+python -m pip install proofed-agent
 ```
 
 ## Watch false completion fail
